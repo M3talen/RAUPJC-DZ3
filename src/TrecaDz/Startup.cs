@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TodoRepo;
+using TodoRepo.Interfaces;
+using TodoRepo.Repository;
 using TrecaDz.Data;
 using TrecaDz.Models;
 using TrecaDz.Services;
@@ -57,6 +60,9 @@ namespace TrecaDz
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddTransient<ITodoRepository, TodoSqlRepository>();
+            services.AddScoped(s => new TodoDbContext(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

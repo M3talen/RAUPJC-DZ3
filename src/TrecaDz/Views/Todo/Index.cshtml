@@ -1,0 +1,29 @@
+﻿@model List<TodoRepo.Models.TodoItem>
+
+
+@{ ViewData["Title"] = "List of active ToDo-s"; }
+
+<h1 class="text-center">
+    @ViewData["Title"]
+</h1>
+
+<form asp-controller="Todo" asp-action="AddNewToDo"
+      asp-route-returnurl="@ViewData["Index"]"
+      method="post" class="form-horizontal" role="form">
+    <input type="submit" value="Add">
+</form>
+
+
+<ul class="text-center list-group">
+    @foreach (var item in Model)
+    {
+        <li>
+            <p>
+                <strong>@item.Text</strong>
+            </p>
+            <p>
+                <em>Created: @item.DateCreated</em>
+            </p>
+        </li>
+    }
+</ul>

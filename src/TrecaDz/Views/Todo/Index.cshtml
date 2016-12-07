@@ -1,29 +1,49 @@
-﻿@model List<TodoRepo.Models.TodoItem>
+﻿@using System.Threading.Tasks
+@model IEnumerable<TodoRepo.Models.TodoItem>
+@{
+    ViewBag.Title = "Active todo items";
+    Layout = "_Layout";
+}
+
+<h2>Active ToDo Items</h2>
+
+<a asp-controller="Todo" asp-action="Add">
+    <ul class="btn btn-default btn-success">
+
+        <span class="glyphicon glyphicon-plus"></span>
+        <strong> Add new todo </strong>
+
+    </ul>
+</a>
+<a asp-controller="Todo" asp-action="SeeCompleted">
+    <ul class="btn btn-default btn-normal">
+        <span class="glyphicon glyphicon-modal-window"></span>
+        <strong> See completed todos </strong>
+
+    </ul>
+</a>
+
+<br/><br/>
+<ul class="list-group">
 
 
-@{ ViewData["Title"] = "List of active ToDo-s"; }
-
-<h1 class="text-center">
-    @ViewData["Title"]
-</h1>
-
-<form asp-controller="Todo" asp-action="AddNewToDo"
-      asp-route-returnurl="@ViewData["Index"]"
-      method="post" class="form-horizontal" role="form">
-    <input type="submit" value="Add">
-</form>
-
-
-<ul class="text-center list-group">
     @foreach (var item in Model)
     {
-        <li>
-            <p>
-                <strong>@item.Text</strong>
-            </p>
-            <p>
-                <em>Created: @item.DateCreated</em>
-            </p>
-        </li>
+            <div class="panel panel-default" style="width: 29%">
+                <div class="panel-body">
+
+                    <strong>@item.Text</strong><br/>
+                    <em>Created: @item.DateCreated</em>
+
+                </div><a asp-controller="Todo" asp-action="MarkAsCompleted" asp-route-id="@item.Id">
+                    <div class="panel-footer" style="text-align: center">
+
+                        <span class="glyphicon glyphicon-check"></span>
+                        <strong>Mark as completed </strong>
+
+                    </div>
+                </a>
+            </div>
+            
     }
 </ul>

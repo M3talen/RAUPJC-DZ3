@@ -32,6 +32,7 @@ namespace TodoRepo.Models
             Id = Guid.NewGuid(); // Generates new unique identifier
             Text = text;
             IsCompleted = false;
+            UserId = userId;
             DateCreated = DateTime.Now; // Set creation date as current time UserId = userId;
         }
 
@@ -55,6 +56,16 @@ namespace TodoRepo.Models
             {
                 IsCompleted = true;
                 DateCompleted = DateTime.Now;
+            }
+        }
+
+        public void MarkAsIncomplete()
+        {
+            if (IsCompleted)
+            {
+                IsCompleted = false;
+                DateCreated = DateTime.Now;
+                DateCompleted = null;
             }
         }
     }

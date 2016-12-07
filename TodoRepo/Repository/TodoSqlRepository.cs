@@ -21,13 +21,13 @@ namespace TodoRepo.Repository
             var item = _context.TodoItems.FirstOrDefault(s => s.Id.Equals(todoId));
             if (item == null) return null;
             if (item.UserId.Equals(userId)) return item;
-            else throw new TodoAccessDeniedException("Permission denied : User does not own this item.");
+            throw new TodoAccessDeniedException("Permission denied : User does not own this item.");
         }
 
         public void Add(TodoItem todoItem)
         {
             if (todoItem == null) throw new ArgumentNullException();
-            if (_context.TodoItems.Any(t => t.Text.Equals(todoItem.Text))) throw new DuplicateTodoItemException(todoItem.Id);
+            if (_context.TodoItems.Any(t => t.Id.Equals(todoItem.Id))) throw new DuplicateTodoItemException(todoItem.Id);
 
             _context.TodoItems.Add(todoItem);
             _context.SaveChanges();
@@ -63,6 +63,29 @@ namespace TodoRepo.Repository
             return true;
         }
 
+
+        public bool MarkAsIncompleted(Guid todoId, Guid userId)
+        {
+            if (!_context.TodoItems.Any(t => t.Id.Equals(todoId))) return false;
+            Get(todoId, userId).MarkAsIncomplete();
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool Delete(Guid todoId, Guid userId)
+        {
+            var item = _context.TodoItems.FirstOrDefault(s => s.Id.Equals(todoId));
+            if (item == null) return false;
+            if (item.UserId.Equals(userId))
+            {
+                _context.TodoItems.Remove(item);
+                _context.SaveChanges();
+                return true;
+            }
+            throw new TodoAccessDeniedException("Permission denied : User does not own this item.");
+            
+        }
+
         public List<TodoItem> GetAll(Guid userId)
         {
             return _context.TodoItems.Where(t => t.UserId.Equals(userId)).OrderByDescending(t => t.DateCreated).ToList();
@@ -87,5 +110,6 @@ namespace TodoRepo.Repository
                 .Where(t => t.UserId.Equals(userId))
                 .OrderByDescending(t => t.DateCreated).ToList();
         }
+
     }
 }

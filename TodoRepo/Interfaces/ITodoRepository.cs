@@ -63,5 +63,15 @@ namespace TodoRepo.Interfaces
         /// Gets all TodoItem objects in database for user that	apply to the filter
         /// </summary>
         List<TodoItem> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId);
+
+        /// <summary>
+        /// Tries to mark a TodoItem as incompleted in database. Throw TodoAccessDeniedException with appropriate message if user is not the owner of the Todo item
+        /// </summary>
+        /// <param name="todoId">Todo Id</param>
+        /// <param name="userId">Id of the user that is trying to mark as incompleted</param>
+        /// <returns>True if success, false otherwise</returns> 
+        bool MarkAsIncompleted(Guid id, Guid parse);
+
+        bool Delete(Guid id, Guid parse);
     }
 }

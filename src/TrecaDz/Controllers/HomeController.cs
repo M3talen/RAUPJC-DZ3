@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TrecaDz.Controllers
@@ -10,7 +11,16 @@ namespace TrecaDz.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("Todo/Index");
+            }
+                return View();
+
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           
         }
 
         public IActionResult About()

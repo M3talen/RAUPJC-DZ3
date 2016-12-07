@@ -12,7 +12,7 @@ using TrecaDz.Models;
 
 namespace TrecaDz.Controllers
 {
-  //  [Authorize]
+    [Authorize]
     public class TodoController : Controller
     {
 
@@ -25,24 +25,75 @@ namespace TrecaDz.Controllers
             _userManager = userManager;
         }
 
-        private async Task<ApplicationUser> GetCurrentUser()
-        {
-            return await _userManager.GetUserAsync(HttpContext.User);
-        }
-
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUser();
-          
-            return View(_repository.GetActive(Guid.Parse(user.Id)));
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            
+            var todoItems = _repository.GetActive(Guid.Parse(currentUser.Id));
+
+            return View(todoItems);
         }
 
-        public async void AddNewToDo(object sender, EventArgs e)
+
+        public IActionResult Add()
         {
-            var user =  await _userManager.GetUserAsync(HttpContext.User);
-            var item = new TodoItem("TEST 1", Guid.Parse(user.Id));
-            _repository.Add(item);
+            return View();
         }
-       
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewToDo(AddTodoViewModel m)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                var item = new TodoItem(m.Text, Guid.Parse(currentUser.Id));
+                _repository.Add(item);
+                return RedirectToAction("Index");
+            }
+            return View("Add", m);
+        }
+
+        public async Task<IActionResult> SeeCompleted()
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var todoItems = _repository.GetCompleted(Guid.Parse(currentUser.Id));
+
+            return View(todoItems);
+        }
+
+        public async Task<IActionResult> MarkAsCompleted(Guid id)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _repository.MarkAsCompleted(id, Guid.Parse(currentUser.Id));
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> MarkAsInCompleted(Guid id)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _repository.MarkAsIncompleted(id, Guid.Parse(currentUser.Id));
+
+            return RedirectToAction("SeeCompleted");
+        }
+
+        public async Task<IActionResult> SeeActive()
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var todoItems = _repository.GetActive(Guid.Parse(currentUser.Id));
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _repository.Delete(id, Guid.Parse(currentUser.Id));
+
+            return RedirectToAction("SeeCompleted");
+        }
+
     }
 }

@@ -4,20 +4,20 @@
     ViewBag.Title = "Active todo items";
     Layout = "_Layout";
 }
-
+<div class="se-pre-con"></div>
 <h2>Active ToDo Items</h2>
 
 <a asp-controller="Todo" asp-action="Add">
     <ul class="btn btn-default btn-success">
 
-        <span class="glyphicon glyphicon-plus"></span>
+        <span class="fa fa-plus fa-lg"></span>
         <strong> Add new todo </strong>
 
     </ul>
 </a>
 <a asp-controller="Todo" asp-action="SeeCompleted">
     <ul class="btn btn-default btn-normal">
-        <span class="glyphicon glyphicon-modal-window"></span>
+        <span class="fa fa-th-large fa-lg"></span>
         <strong> See completed todos </strong>
 
     </ul>
@@ -26,24 +26,26 @@
 <br/><br/>
 <ul class="list-group">
 
+    <div class="card card-block">
+        @foreach (var item in Model)
+        {
+                    <div class="panel panel-default" style="width: 29%">
+                        <div class="panel-body">
 
-    @foreach (var item in Model)
-    {
-            <div class="panel panel-default" style="width: 29%">
-                <div class="panel-body">
+                            <strong>@item.Text</strong><br />
+                            <em>Created: @item.DateCreated</em>
 
-                    <strong>@item.Text</strong><br/>
-                    <em>Created: @item.DateCreated</em>
+                        </div><a asp-controller="Todo" asp-action="MarkAsCompleted" asp-route-id="@item.Id">
+                            <div class="panel-footer" style="text-align: center">
 
-                </div><a asp-controller="Todo" asp-action="MarkAsCompleted" asp-route-id="@item.Id">
-                    <div class="panel-footer" style="text-align: center">
+                                <span class="fa fa-check fa-lg"></span>
+                                <strong>Mark as completed </strong>
 
-                        <span class="glyphicon glyphicon-check"></span>
-                        <strong>Mark as completed </strong>
-
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            
-    }
+                
+        }
+    </div>
+
 </ul>

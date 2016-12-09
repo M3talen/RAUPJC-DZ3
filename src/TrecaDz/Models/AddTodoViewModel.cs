@@ -9,7 +9,7 @@ namespace TrecaDz.Models
     public class AddTodoViewModel
     {
         [Required]
-        [MaxLength(140)]
+        [MaxLength(40)]
         public string Text { get; set; }
     }
 }

@@ -1,16 +1,18 @@
 ﻿@model AddTodoViewModel
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card" style="text-align: center">
+                <form asp-controller="Todo" asp-action="AddNewToDo" method="post" class="form form-inline">
 
-<form asp-controller="Todo" asp-action="AddNewToDo" method="post" class="form-horizontal">
-    <h4>Add new todo</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <input asp-for="Text" title="" class="form-control" />
-            <span asp-validation-for="Text" class="text-danger"></span>
-            <br/>
-            <button type="submit" class="btn btn-default btn-success">Add new todo</button>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <div class="col-md-0">
+                            <input asp-for="Text" title="" class="form-control" />
+                            <button type="submit" class="btn btn-default btn-success">Add</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
-   
-</form>

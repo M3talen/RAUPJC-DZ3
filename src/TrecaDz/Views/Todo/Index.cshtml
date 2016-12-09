@@ -5,23 +5,28 @@
     Layout = "_Layout";
 }
 <h2 style="text-align: center">Active items</h2>
-<div class="container" >
-    <div class="row" style="text-align: center">
-            <a asp-controller="Todo" asp-action="Add">
-                <ul class="btn btn-normal btn-success">
-                    <span class="fa fa-plus fa-lg"></span>
-                    <strong>Add</strong>
+<div class="container">
+    <div id="add-button" class="row" style="text-align: center;">
+        <a  >
+            <ul class="btn btn-normal btn-success">
+                <span class="fa fa-plus fa-lg"></span>
+                <strong>Add</strong>
 
-                </ul>
-                </a>
-            <a asp-controller="Todo" asp-action="SeeCompleted">
-                <ul class="btn btn-normal btn-default">
-                    <span class="fa fa-th-large fa-lg"></span>
-                    <strong>See completed</strong>
+            </ul>
+        </a>
+        
 
-                </ul>
-            </a>
+        <a asp-controller="Todo" asp-action="SeeCompleted">
+            <ul class="btn btn-normal btn-default">
+                <span class="fa fa-th-large fa-lg"></span>
+                <strong>See completed</strong>
+
+            </ul>
+        </a>
     </div>
+</div>
+<div id="add-form" style="display: none;">
+    @Html.Partial("Add", new AddTodoViewModel())
 </div>
 <br/><br/>
 
@@ -30,24 +35,24 @@
         <div class="card card-block">
             @foreach (var item in Model)
             {
-                    <div class="col-xs-0 col-sm-6 col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
+                <div class="col-xs-0 col-sm-6 col-md-4">
+                    <div class="panel panel-default" >
+                        <div class="panel-body">
 
-                                <strong>@item.Text</strong><br />
-                                <em>Created: @item.DateCreated</em>
+                            <strong>@item.Text</strong><br/>
+                            <em>Created: @item.DateCreated</em>
 
-                            </div><a asp-controller="Todo" asp-action="MarkAsCompleted" asp-route-id="@item.Id">
-                                <div class="panel-footer" style="text-align: center">
+                        </div><a asp-controller="Todo" asp-action="MarkAsCompleted" asp-route-id="@item.Id">
+                            <div class="panel-footer" style="text-align: center">
 
-                                    <span class="fa fa-check fa-lg"></span>
-                                    <strong>Mark as completed </strong>
+                                <span class="fa fa-check fa-lg"></span>
+                                <strong>Mark as completed </strong>
 
-                                </div>
-                            </a>
-                        </div>
-
+                            </div>
+                        </a>
                     </div>
+
+                </div>
             }
         </div>
     </div>

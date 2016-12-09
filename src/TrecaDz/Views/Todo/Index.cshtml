@@ -6,15 +6,14 @@
 }
 <h2 style="text-align: center">Active items</h2>
 <div class="container">
-    <div id="add-button" class="row" style="text-align: center;">
-        <a  >
+    <div class="row" style="text-align: center;">
+        <a id="add-button">
             <ul class="btn btn-normal btn-success">
                 <span class="fa fa-plus fa-lg"></span>
                 <strong>Add</strong>
 
             </ul>
         </a>
-        
 
         <a asp-controller="Todo" asp-action="SeeCompleted">
             <ul class="btn btn-normal btn-default">
@@ -24,10 +23,11 @@
             </ul>
         </a>
     </div>
+    <div id="add-form" style="display: none; text-align: center">
+        @Html.Partial("Add", new AddTodoViewModel())
+    </div>
 </div>
-<div id="add-form" style="display: none;">
-    @Html.Partial("Add", new AddTodoViewModel())
-</div>
+
 <br/><br/>
 
 <div class="container-fluid">
@@ -36,7 +36,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-xs-0 col-sm-6 col-md-4">
-                    <div class="panel panel-default" >
+                    <div class="panel panel-default">
                         <div class="panel-body">
 
                             <strong>@item.Text</strong><br/>

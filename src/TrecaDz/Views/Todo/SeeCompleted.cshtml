@@ -29,8 +29,8 @@
                         <div class="panel-body">
 
                             <strong>@item.Text</strong><br />
-                            <em>Created: @item.DateCreated</em><br
-                            <em>Completed: @item.DateCompleted</em>
+                            <em style="font-size: 12px">Created : @item.DateCreated</em><br />
+                            <em style="font-size: 12px">Completed : @item.DateCompleted</em>
                         </div>
 
                         <a asp-controller="Todo" asp-action="Delete" asp-route-id="@item.Id">

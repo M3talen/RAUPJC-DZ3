@@ -4,8 +4,8 @@
     ViewBag.Title = "Active todo items";
     Layout = "_Layout";
 }
-<h2 style="text-align: center">Active items</h2>
-<div class="container">
+<h2 style="text-align: center" class="animated fadeInDown">Active items</h2>
+<div class="container animated fadeInDown">
     <div class="row" style="text-align: center;">
         <a id="add-button">
             <ul class="btn btn-normal btn-success">
@@ -35,7 +35,7 @@
         <div class="card card-block">
             @foreach (var item in Model)
             {
-                <div class="col-xs-0 col-sm-6 col-md-4">
+                <div class="col-xs-0 col-sm-6 col-md-4 animated fadeInUp">
                     <div class="panel panel-default">
                         <div class="panel-body">
 

@@ -5,8 +5,8 @@
     Layout = "_Layout";
 }
 
-<h2 style="text-align: center">Completed items</h2>
-<div class="container">
+<h2 style="text-align: center" class="animated fadeInDown">Completed items</h2>
+<div class="container animated fadeInDown">
     <div class="row" style="text-align: center">
         <a asp-controller="Todo" asp-action="SeeActive">
             <ul class="btn btn-default btn-normal">
@@ -15,47 +15,48 @@
 
             </ul>
         </a>
-    </div> </div>
+    </div>
+</div>
 
-        <br /><br />
-        <div class="container-fluid">
-            <div class="row">
-                <div class="card card-block">
-                    @foreach (var item in Model)
+<br /><br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="card card-block">
+            @foreach (var item in Model)
             {
-                        <div class="col-xs-0 col-sm-6 col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
+                <div class="col-xs-0 col-sm-6 col-md-4 animated fadeInUp">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-                                    <strong>@item.Text</strong><br />
-                                    <em>Created: @item.DateCreated</em><br
-                                    <em>Completed: @item.DateCompleted</em>
-                                </div>
+                            <strong>@item.Text</strong><br />
+                            <em>Created: @item.DateCreated</em><br
+                            <em>Completed: @item.DateCompleted</em>
+                        </div>
 
-                                <a asp-controller="Todo" asp-action="Delete" asp-route-id="@item.Id">
-                                    <div class="btn-danger btn-xs" style="text-align: center">
+                        <a asp-controller="Todo" asp-action="Delete" asp-route-id="@item.Id">
+                            <div class="btn-danger btn-xs" style="text-align: center">
 
-                                        <span class="glyphicon glyphicon-remove-sign"></span>
-                                        <strong>Delete</strong>
-
-                                    </div>
-
-                                </a>
-
-                                <a asp-controller="Todo" asp-action="MarkAsIncompleted" asp-route-id="@item.Id">
-                                    <div class="panel-footer" style="text-align: center">
-
-                                        <span class="glyphicon glyphicon-check"></span>
-                                        <strong>Mark as incompleted </strong>
-
-                                    </div>
-
-                                </a>
+                                <span class="glyphicon glyphicon-remove-sign"></span>
+                                <strong>Delete</strong>
 
                             </div>
 
-                        </div>
-                    }
+                        </a>
+
+                        <a asp-controller="Todo" asp-action="MarkAsIncompleted" asp-route-id="@item.Id">
+                            <div class="panel-footer" style="text-align: center">
+
+                                <span class="glyphicon glyphicon-check"></span>
+                                <strong>Mark as incompleted </strong>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
                 </div>
-            </div>
+            }
         </div>
+    </div>
+</div>
